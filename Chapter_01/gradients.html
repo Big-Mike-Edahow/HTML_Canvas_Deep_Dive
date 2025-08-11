@@ -1,0 +1,53 @@
+<!-- gradients.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./favicon.ico" type="image/png" rel="shortcut icon">
+    <title>Gradients</title>
+    <style>
+        main {
+            margin-top: 15px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 100%;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+
+        #canvas {
+            box-sizing: content-box;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="container">
+            <canvas width="640" height="480" id="canvas"></canvas>
+        </section>
+    </main>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        let grad = ctx.createLinearGradient(0, 0, 200, 0);
+        grad.addColorStop(0, "red");
+        grad.addColorStop(0.5, "white");
+        grad.addColorStop(1, "blue");
+
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 400, 200);
+    </script>
+</body>
+
+</html>
+

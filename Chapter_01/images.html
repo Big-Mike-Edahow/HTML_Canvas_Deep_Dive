@@ -1,0 +1,53 @@
+<!-- images.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./favicon.ico" type="image/png" rel="shortcut icon">
+    <title>Images</title>
+    <style>
+        main {
+            margin-top: 15px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 100%;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+
+        #canvas {
+            box-sizing: content-box;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="container">
+            <canvas width="640" height="480" id="canvas"></canvas>
+        </section>
+    </main>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        let img = new Image();
+        img.onload = function () {
+            let var1 = 100, var2 = 100, var3 = 20, var4 = 10, var5 = 20, var6 = 20;
+            ctx.drawImage(img, 0, 0);                                       // Normal image
+            ctx.drawImage(img, 0, 0, 66, 66, 100, 0, var1, var2);           // Stretched
+            ctx.drawImage(img, var3, var4, var5, var6, 250, 0, 250, 50);    // Slice
+        }
+        img.src = './smile.png';
+    </script>
+</body>
+
+</html>
