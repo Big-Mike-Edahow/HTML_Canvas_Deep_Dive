@@ -1,0 +1,99 @@
+<!-- piechart.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./favicon.ico" type="image/png" rel="shortcut icon">
+    <title>Piechart</title>
+    <style>
+        main {
+            margin-top: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 100%;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+
+        #canvas {
+            box-sizing: content-box;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="container">
+            <canvas width="640" height="480" id="canvas"></canvas>
+        </section>
+    </main>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const data = [100, 68, 20, 30, 100];
+
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, 500, 500);
+
+        // Array of colors 
+        const colors = ["orange", "green", "blue", "yellow", "teal", "red"];
+
+        // Calculate total of all data 
+        let total = 0;
+        for (let i = 0; i < data.length; i++) {
+            total += data[i];
+        }
+
+        // Draw pie data 
+        let prevAngle = 0;
+        for (let i = 0; i < data.length; i++) {
+            // Fraction that this pieslice represents 
+            let fraction = data[i] / total;
+            // Calculate starting angle 
+            let angle = prevAngle + fraction * Math.PI * 2;
+
+            // Draw the pie slice 
+
+            // Fill with a radial gradient 
+            let grad = ctx.createRadialGradient(canvas.width / 2, (canvas.height / 2) - 20, 10, canvas.width / 2, (canvas.height / 2) - 20, 175);
+            grad.addColorStop(0, "white");
+            grad.addColorStop(1, colors[i]);
+            ctx.fillStyle = grad;
+
+            // Create a path 
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, (canvas.height / 2) - 20);
+            ctx.arc(canvas.width / 2, (canvas.height / 2) - 20, 175, prevAngle, angle, false);
+            ctx.lineTo(canvas.width / 2, (canvas.height / 2) - 20);
+
+            // Fill it 
+            ctx.fill();
+
+            // Stroke it 
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+
+            // Update for next time through the loop 
+            prevAngle = angle;
+
+            // Draw centered text 
+            ctx.fillStyle = "black";
+            ctx.font = "24pt sans-serif";
+            let text = "Sales Data from 2025";
+            let metrics = ctx.measureText(text);
+            ctx.fillText(text, (canvas.width / 2) - (metrics.width / 2), 460);
+        }
+    </script>
+</body>
+
+</html>
+

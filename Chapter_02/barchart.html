@@ -1,0 +1,82 @@
+<!-- barchart.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./favicon.ico" type="image/png" rel="shortcut icon">
+    <title>Barchart</title>
+    <style>
+        main {
+            margin-top: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 100%;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+
+        #canvas {
+            box-sizing: content-box;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="container">
+            <canvas width="640" height="480" id="canvas"></canvas>
+        </section>
+    </main>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const data = [16, 68, 20, 30, 54, 72];
+
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, 640, 480);
+
+        // Draw bars from data 
+        ctx.fillStyle = "blue";
+        for (let i = 0; i < data.length; i++) {
+            let dp = data[i];
+            ctx.fillRect(45 + i * 100, 480 - dp * 5 - 30, 50, dp * 5);
+        }
+
+        // Draw axis lines 
+        ctx.fillStyle = "black";
+        ctx.lineWidth = 2.0;
+        ctx.beginPath();
+        ctx.moveTo(30, 30);
+        ctx.lineTo(30, 450);
+        ctx.lineTo(595, 450);
+        ctx.stroke();
+
+        // Draw text and vertical lines 
+        ctx.fillStyle = "black";
+        for (let i = 0; i < 6; i++) {
+            ctx.fillText((5 - i) * 20 + "", 4, i * 80 + 50);
+            ctx.beginPath();
+            ctx.moveTo(25, i * 80 + 50);
+            ctx.lineTo(30, i * 80 + 50);
+            ctx.stroke();
+        }
+
+        // Draw horizontal text
+        const labels = ["JAN", "FEB", "MAR", "APR", "MAY", "June"]; 
+        for (let i = 0; i < labels.length; i++) {
+            ctx.fillText(labels[i], 55 + i * 100, 475);
+        } 
+    </script>
+</body>
+
+</html>
+
