@@ -1,0 +1,91 @@
+<!-- transforms.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./favicon.ico" type="image/png" rel="shortcut icon">
+    <title>Transforms</title>
+    <style>
+        main {
+            margin-top: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 100%;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+
+        #canvas {
+            box-sizing: content-box;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="container">
+            <canvas width="640" height="480" id="canvas"></canvas>
+        </section>
+    </main>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const data = [50, 80, 30, 100, 60, 45, 70, 55];
+        const labels = ["A", "B", "C", "D", "E", "F", "G", "H"];
+        
+        let barWidth = 50;
+        let barSpacing = 20;
+        let chartBottom = canvas.height - 50;
+        let chartLeft = 50;
+        let scaleFactor = 3; // Adjust bar heights.
+
+        // Iterate through the data and draw each bar.
+        for (let i = 0; i < data.length; i++) {
+            // Save the current context state.
+            ctx.save();
+
+            // Set the bar height and its horizontal position.
+            let barHeight = data[i] * scaleFactor;
+            let xPos = chartLeft + (i * (barWidth + barSpacing));
+
+            // Translate the origin to the bottom-left corner of the current bar.
+            ctx.translate(xPos, chartBottom);
+
+            // Set the fill style and draw the bar upwards.
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(0, 0, barWidth, -barHeight);
+
+            // Draw labels below the bar.
+            ctx.fillStyle = 'black';
+            ctx.textAlign = 'center';
+            ctx.fillText(labels[i], barWidth / 2, 20);
+
+            // Restore the context to its previous state.
+            ctx.restore();
+        }
+
+        // Draw the line for the X-axis.
+        ctx.beginPath();
+        ctx.moveTo(chartLeft, chartBottom);
+        ctx.lineTo(canvas.width - 20, chartBottom);
+        ctx.stroke();
+
+        // Draw the line for the Y-axis.
+        ctx.beginPath();
+        ctx.moveTo(chartLeft, chartBottom);
+        ctx.lineTo(chartLeft, 20);
+        ctx.stroke();
+    </script>
+</body>
+
+</html>
+

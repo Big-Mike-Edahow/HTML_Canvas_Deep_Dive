@@ -1,0 +1,90 @@
+<!-- events.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./favicon.ico" type="image/png" rel="shortcut icon">
+    <title>Events</title>
+    <style>
+        main {
+            margin-top: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 100%;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+
+        #canvas {
+            box-sizing: content-box;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="container">
+            <canvas width="640" height="480" id="canvas"></canvas>
+        </section>
+    </main>
+    <script>
+        // Create the canvas and get the 2d context.
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // Button properties.
+        const buttonWidth = 200;
+        const buttonHeight = 75;
+        const buttonX = (canvas.width / 2) - (buttonWidth / 2);
+        const buttonY = (canvas.height / 2) - (buttonHeight / 2);
+        const buttonText = 'Click Me!';
+
+        // Add an event listener to the canvas. Inside the event handler,
+        // the mouse click coords are compared to the button's boundaries.
+        canvas.addEventListener('click', function (event) {
+            // Get mouse coordinates relative to the canvas.
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+
+            // Check if click is within button bounds.
+            if (mouseX >= buttonX && mouseX <= buttonX + buttonWidth &&
+                mouseY >= buttonY && mouseY <= buttonY + buttonHeight) {
+                console.log('Button clicked!');
+                alert('You clicked the button!');
+            }
+        });
+
+        // Draw the button on the canvas.
+        function drawButton() {
+            // Draw button background.
+            ctx.fillStyle = 'dodgerblue';
+            ctx.fillRect(buttonX, buttonY, buttonWidth, buttonHeight);
+
+            // Draw button border.
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(buttonX, buttonY, buttonWidth, buttonHeight);
+
+            // Draw button text.
+            ctx.fillStyle = 'white';
+            ctx.font = '30px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(buttonText, buttonX + buttonWidth / 2, buttonY + buttonHeight / 2);
+        }
+
+        drawButton();
+    </script>
+</body>
+
+</html>
+

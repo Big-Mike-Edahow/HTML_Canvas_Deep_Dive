@@ -1,0 +1,71 @@
+<!-- clipping.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./favicon.ico" type="image/png" rel="shortcut icon">
+    <title>Clipping</title>
+    <style>
+        main {
+            margin-top: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 100%;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+
+        #canvas {
+            box-sizing: content-box;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="container">
+            <canvas width="640" height="480" id="canvas"></canvas>
+        </section>
+    </main>
+    <script>
+        // Create the canvas and get the 2d context.
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        let rectWidth = 400
+        let rectHeight = 100
+
+        // Draw rectangle the first time in center of canvas.
+        ctx.fillStyle = 'red';
+        ctx.fillRect((canvas.width / 2) - (rectWidth / 2), (canvas.height / 2) - (rectHeight / 2), 400, 100);
+
+        // Create triangle path in center of canvas.
+        ctx.beginPath();
+        ctx.moveTo(canvas.width / 2, (canvas.height / 2));
+        ctx.lineTo((canvas.width / 2) + 50, (canvas.height / 2) + 100);
+        ctx.lineTo((canvas.width / 2) - 50, (canvas.height / 2) + 100);
+        ctx.closePath();
+
+        // Stroke the triangle so we can see it.
+        ctx.lineWidth = 10;
+        ctx.stroke();
+
+        // Use triangle as clip.
+        ctx.clip();
+
+        // Fill rectangle in again with yellow.
+        ctx.fillStyle = 'yellow';
+        ctx.fillRect((canvas.width / 2) - (rectWidth / 2), (canvas.height / 2) - (rectHeight / 2), 400, 100);
+    </script>
+</body>
+
+</html>
+

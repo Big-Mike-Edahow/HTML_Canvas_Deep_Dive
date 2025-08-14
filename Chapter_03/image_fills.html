@@ -1,0 +1,63 @@
+<!-- image_fills.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./favicon.ico" type="image/png" rel="shortcut icon">
+    <title>Image Fills</title>
+    <style>
+        main {
+            margin-top: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 100%;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+
+        #canvas {
+            box-sizing: content-box;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="container">
+            <canvas width="640" height="480" id="canvas"></canvas>
+        </section>
+    </main>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        let img = new Image();
+        img.src = "./tile.png";
+
+        function drawIt() {
+            let pattern = ctx.createPattern(img, "repeat");
+
+            // Set the fillStyle to the created pattern.
+            ctx.fillStyle = pattern;
+
+            // Draw a shape (e.g., a rectangle) that will be filled with the pattern.
+            ctx.fillRect(20, 20, canvas.width - 40, canvas.height - 40);
+        }
+
+        img.onload = function() {
+            console.log("Image was loaded.");
+            drawIt();
+        }
+    </script>
+</body>
+
+</html>
+

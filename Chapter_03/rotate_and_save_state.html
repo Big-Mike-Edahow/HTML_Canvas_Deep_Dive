@@ -1,0 +1,85 @@
+<!-- rotate.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./favicon.ico" type="image/png" rel="shortcut icon">
+    <title>Rotate and Save State</title>
+    <style>
+        main {
+            margin-top: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 100%;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+
+        #canvas {
+            box-sizing: content-box;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="container">
+            <canvas width="640" height="480" id="canvas"></canvas>
+        </section>
+    </main>
+    <script>
+        // Create the canvas and get the 2d context.
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // Width of the square.
+        const squareSize = 200;
+
+        // Center coordinates of the canvas.
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+
+        // Initial rotation angle in radians.
+        let angle = 0;
+
+        function drawRotatedSquare() {
+            // Clear the canvas.
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Save the current drawing state.
+            ctx.save();
+
+            // Translate to the rotation point at the center of the canvas.
+            ctx.translate(centerX, centerY);
+
+            // Rotate the context.
+            ctx.rotate(angle);
+
+            // Draw the square, positioning its top-left corner relative to the new origin
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(-squareSize / 2, -squareSize / 2, squareSize, squareSize);
+
+            ctx.restore(); // Restore the saved drawing state.
+
+            // Increment the angle for continuous rotation
+            angle += 0.01;
+
+            // Loop for animation.
+            requestAnimationFrame(drawRotatedSquare);
+        }
+
+        // Start the square rotating.
+        drawRotatedSquare();
+    </script>
+</body>
+
+</html>
+
