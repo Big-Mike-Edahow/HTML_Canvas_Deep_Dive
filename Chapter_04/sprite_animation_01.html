@@ -1,0 +1,92 @@
+<!-- sprite_animation_01.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./favicon.ico" type="image/png" rel="shortcut icon">
+    <title>Sprite Animation One</title>
+    <style>
+        main {
+            margin-top: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 100%;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+
+        #canvas {
+            box-sizing: content-box;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="container">
+            <canvas width="640" height="480" id="canvas"></canvas>
+        </section>
+    </main>
+    <script>
+        const canvas = document.getElementById("canvas");       // Create the canvas.
+        const ctx = canvas.getContext("2d");                    // Get the 2d context.
+
+        let img = new Image();
+        img.src = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png';
+        img.onload = function () {
+            init();
+        };
+
+        const scale = 4;
+        const width = 16;
+        const height = 18;
+        const scaledWidth = scale * width;
+        const scaledHeight = scale * height;
+
+        function drawFrame(frameX, frameY, canvasX, canvasY) {
+            ctx.drawImage(img,
+                frameX * width, frameY * height, width, height,
+                canvasX, canvasY, scaledWidth, scaledHeight);
+        }
+
+        const cycleLoop = [0, 1, 0, 2];
+        let currentLoopIndex = 0;
+        let frameCount = 0;
+        let currentDirection = 0;
+
+        function step() {
+            frameCount++;
+            if (frameCount < 15) {
+                requestAnimationFrame(step);
+                return;
+            }
+            frameCount = 0;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawFrame(cycleLoop[currentLoopIndex], currentDirection, 0, 0);
+            currentLoopIndex++;
+            if (currentLoopIndex >= cycleLoop.length) {
+                currentLoopIndex = 0;
+                currentDirection++;
+            }
+            if (currentDirection >= 4) {
+                currentDirection = 0;
+            }
+            requestAnimationFrame(step);
+        }
+
+        function init() {
+            requestAnimationFrame(step);
+        }
+    </script>
+</body>
+
+</html>
+

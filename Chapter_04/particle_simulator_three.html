@@ -1,0 +1,84 @@
+<!-- particle_simulator_three.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./favicon.ico" type="image/png" rel="shortcut icon">
+    <title>Digital Rain</title>
+    <style>
+        main {
+            margin-top: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 100%;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+
+        #canvas {
+            box-sizing: content-box;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="container">
+            <canvas width="640" height="480" id="canvas"></canvas>
+        </section>
+    </main>
+    <script>
+        const canvas = document.getElementById("canvas");       // Create the canvas.
+        const ctx = canvas.getContext("2d");                    // Get the 2d context.
+
+        // List of Japanese katakana characters, Latin letters, and numerals to display.
+        const alpha = "ア (a), イ (i), ウ (u), エ (e), オ (o), カ (ka), キ (ki), ク (ku), ケ (ke),\
+        コ (ko), サ (sa), シ (shi), ス (su), セ (se), ソ (so), タ (ta), チ (chi), ツ (tsu), テ (te),\
+        ト (to), ナ (na), ニ (ni), ヌ (nu), ネ (ne), ノ (no),ハ (ha), ヒ (hi), フ (fu), ヘ (he),\
+        ホ (ho), マ (ma), ミ (mi), ム (mu), メ (me), モ (mo), ヤ (ya), ユ (yu), ヨ (yo), ラ (ra),\
+        リ (ri), ル (ru), レ (re), ロ (ro), ワ (wa), ヲ (wo), ン (n), a, b, c, d, e, f, g, h, i, j,\
+        k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9"
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        // Array repesenting the Y position of the character in that column.
+        const rainDrops = [];
+
+        // Set the initial Y position of each raindrop in the array to zero.
+        for (let i = 0; i < columns; i++) {
+            rainDrops[i] = 0;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);                     // Loop to continue animation.
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';              // Semi-transparent black over previous 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);    // frames, creates the fading trail.
+            ctx.fillStyle = '#0F0';                             // Green text color
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alpha.charAt(Math.floor(Math.random() * alpha.length));    // Random chars.
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);  // Draw the characters.           
+
+                // If a raindrop goes off screen, reset its position to the top.
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++; // Move the raindrop down one position.
+            }
+        }
+        animate();                                              // Start the animation.
+    </script>
+</body>
+
+</html>
+

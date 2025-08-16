@@ -1,0 +1,106 @@
+<!-- particle_simulator_two.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./favicon.ico" type="image/png" rel="shortcut icon">
+    <title>Bouncing Balls</title>
+    <style>
+        main {
+            margin-top: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 100%;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+
+        #canvas {
+            background-color: black;
+            box-sizing: content-box;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="container">
+            <canvas width="640" height="480" id="canvas"></canvas>
+        </section>
+    </main>
+    <script>
+        const canvas = document.getElementById("canvas");       // Create the canvas.
+        const ctx = canvas.getContext("2d");                    // Get the 2d context.
+
+        // Array to store particle objects.
+        const particles = [];
+
+        // Constructor function to define the Particle class.
+        class Particle {
+            constructor(x, y, vx, vy, radius, color) {
+                this.x = x;                                     // X-coordinate of the particle.
+                this.y = y;                                     // Y-coordinate of the particle.
+                this.vx = vx;                                   // Velocity in the x-direction.
+                this.vy = vy;                                   // Velocity in the y-direction.
+                this.radius = radius;                           // Radius of the particle.
+                this.color = color;                             // Color of the particle.
+            }
+
+            // Update the particle's position based on its velocity.
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off horizontal walls.
+                if (this.x > canvas.width || this.x < 0) this.vx *= -1;
+                // Bounce off vertical walls.
+                if (this.y > canvas.height || this.y < 0) this.vy *= -1;
+            }
+
+            // Draw the particle on the canvas.
+            draw() {
+                ctx.beginPath();                                            // Start a new path.
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);       // Draw a circle.
+                ctx.fillStyle = this.color;                                 // Set the fill color.
+                ctx.fill();                                                 // Fill the circle with color.
+                ctx.closePath();                                            // Close the path.
+            }
+        }
+
+        // Create some particles.
+        for (let i = 0; i < 100; i++) {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const vx = (Math.random() - 0.5) * 5;                           // Random X velocity.
+            const vy = (Math.random() - 0.5) * 5;                           // Random Y velocity.
+            const radius = Math.random() * 5 + 3;                           // Random radius.
+            const color = `hsl(${Math.random() * 360}, 70%, 50%)`;          // Random HSL color.
+
+            particles.push(new Particle(x, y, vx, vy, radius, color));
+        }
+
+        // Animation loop.
+        function animate() {
+            requestAnimationFrame(animate);                                 // Request the next frame.
+            ctx.clearRect(0, 0, canvas.width, canvas.height);               // Clear the canvas.
+
+            particles.forEach(particle => {
+                particle.update();                                          // Update particle's position.
+                particle.draw();                                            // Draw the particle.
+            });
+        }
+
+        animate();                                                          // Start the animation.
+    </script>
+</body>
+
+</html>
+
