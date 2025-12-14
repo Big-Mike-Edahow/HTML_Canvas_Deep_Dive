@@ -1,0 +1,41 @@
+/* style.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+html {
+    font-size: 12pt;
+}
+
+body {
+    background-color: azure;
+}
+
+main {
+    margin-top: 50px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 100%;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.headline-h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+canvas {
+    background-color: ghostwhite;
+    border: 2px solid black;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px black;
+    box-sizing: content-box;
+}
