@@ -1,5 +1,5 @@
 [project]
-name = "three-js-torus"
+name = "three-js-rotating-torus"
 version = "0.1.0"
 description = ""
 authors = [
@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "three_js_torus", from = "src"}]
+packages = [{include = "three_js_rotating_torus", from = "src"}]
 
 
 [build-system]

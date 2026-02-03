@@ -1,5 +1,5 @@
 # app.py
-# Flask ThreeJS Torus
+# Flask ThreeJS Rotating Torus
 
 from flask import Flask, render_template
 
@@ -14,6 +14,5 @@ def about():
     return render_template("about.html")
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8000)
-
+    app.run(debug=True, port=5000)
 
