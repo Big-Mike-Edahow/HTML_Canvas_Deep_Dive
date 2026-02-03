@@ -1,0 +1,36 @@
+<!-- base.html -->
+
+{{define "base"}}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/style.css" type="text/css" rel="stylesheet">
+    <link href="/static/images/favicon.ico" type="image/png" rel="icon">
+    <script type="importmap">
+        {"imports":{"three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js"}}
+    </script>
+    <title>{{template "title" .}}</title>
+</head>
+<body>
+    <nav>
+        <h1>Three JS Hello World! 🧊</h1>
+        <a href="/">Home 🏠</a>
+        <a href="/about">About 🛈</a>
+    </nav>
+    <main>
+        {{template "content" .}}
+    </main>
+    <footer>
+        <small>Powered by <a href='https://golang.org/'>Go 🚲</a></small>
+    </footer>
+    <script src="/static/javascript/script.js" type="module"></script>
+</body>
+
+</html>
+
+{{end}}
+

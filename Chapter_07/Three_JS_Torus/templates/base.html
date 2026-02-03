@@ -1,0 +1,33 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/static/images/favicon.ico" type="image/png" rel="shortcut icon">
+    <link href="/static/css/style.css" type="text/css" rel="stylesheet">
+    <script type="importmap">
+	    {"imports": {"three": "https://unpkg.com/three@0.149/build/three.module.js"}}
+    </script>
+    <title>{% block title %} {% endblock %}</title>
+</head>
+
+<body>
+    <nav>
+        <h1>Flask ThreeJS Torus! 🛰️</h1>
+        <a href="/">Home 🎲</a>
+        <a href="/about">About ℹ️</a>
+    </nav>
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+    <script src="/static/js/script.js" type="module"></script>
+</body>
+
+</html>
+
+
